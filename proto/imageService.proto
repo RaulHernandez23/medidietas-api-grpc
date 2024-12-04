@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package imageService;
+
+service ImageService {
+    rpc downloadFile (DownloadFileRequest) returns (DownloadFileResponse);
+    rpc uploadFile (UploadFileRequest) returns (UploadFileResponse);
+}
+
+message DownloadFileRequest {
+    string path = 1;
+}
+
+message DownloadFileResponse {
+    string imageData = 1;
+}
+
+message UploadFileRequest {
+    string username = 1;
+    string userType = 2;
+    string fileName = 3;
+    string imageData = 4;
+}
+
+message UploadFileResponse {
+    bool success = 1;
+}
