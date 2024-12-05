@@ -8,7 +8,7 @@ const packageDefinition = protoLoader.loadSync(PROTO_PATH, {});
 const imagenProto = grpc.loadPackageDefinition(packageDefinition).imageService;
 
 function main() {
-    const profileClient = new imagenProto.ImageService("localhost:50051",
+    const profileClient = new imagenProto.ProfileImageService("localhost:50051",
         grpc.credentials.createInsecure()
     );
 

@@ -2,9 +2,14 @@ syntax = "proto3";
 
 package imageService;
 
-service ImageService {
+service ProfileImageService {
     rpc downloadFile (DownloadFileRequest) returns (DownloadFileResponse);
     rpc uploadFile (UploadFileRequest) returns (UploadFileResponse);
+}
+
+service FoodImageService {
+    rpc downloadFoodImage (DownloadFileRequest) returns (DownloadFileResponse);
+    rpc uploadFoodImage (UploadFoodRequest) returns (UploadFileResponse);
 }
 
 message DownloadFileRequest {
@@ -13,6 +18,11 @@ message DownloadFileRequest {
 
 message DownloadFileResponse {
     string imageData = 1;
+}
+
+message UploadFoodRequest {
+    string fileName = 1;
+    string imageData = 2;
 }
 
 message UploadFileRequest {
