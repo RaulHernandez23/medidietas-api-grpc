@@ -3,35 +3,30 @@ syntax = "proto3";
 package imageService;
 
 service ProfileImageService {
-    rpc downloadFile (DownloadFileRequest) returns (DownloadFileResponse);
-    rpc uploadFile (UploadFileRequest) returns (UploadFileResponse);
+    rpc downloadProfileImage (DownloadImageRequest) returns (DownloadImageResponse);
+    rpc uploadProfileImage (UploadImageRequest) returns (UploadFileResponse);
 }
 
 service FoodImageService {
-    rpc downloadFoodImage (DownloadFileRequest) returns (DownloadFileResponse);
-    rpc uploadFoodImage (UploadFoodRequest) returns (UploadFileResponse);
+    rpc downloadFoodImage (DownloadImageRequest) returns (DownloadImageResponse);
+    rpc uploadFoodImage (UploadImageRequest) returns (UploadFileResponse);
 }
 
-message DownloadFileRequest {
-    string path = 1;
+message DownloadImageRequest {
+    string name = 1;
 }
 
-message DownloadFileResponse {
+message DownloadImageResponse {
     string imageData = 1;
 }
 
-message UploadFoodRequest {
-    string fileName = 1;
-    string imageData = 2;
-}
-
-message UploadFileRequest {
-    string username = 1;
-    string userType = 2;
-    string fileName = 3;
-    string imageData = 4;
+message UploadImageRequest {
+    string name = 1;
+    string extension = 2;
+    string imageData = 3;
 }
 
 message UploadFileResponse {
-    bool success = 1;
+    bool result = 1;
+    string imageName = 2;
 }

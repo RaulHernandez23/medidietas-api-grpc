@@ -2,7 +2,9 @@ const fs = require('fs');
 const path = require('path');
 
 function downloadFoodImage(call, callback) {
-    const filePath = call.request.path;
+    const baseDir = path.join(__dirname, "../resources/foodImage");
+    const filePath = path.join(baseDir, call.request.name);
+    
     fs.readFile(filePath, "base64", (err, data) => {
         if (err) {
             callback({
@@ -16,9 +18,10 @@ function downloadFoodImage(call, callback) {
 }
 
 function uploadFoodImage(call, callback) {
-    const { fileName, imageData} = call.request;
+    const { name, extension, imageData} = call.request;
     
-    const baseDir = path.join(__dirname, "../resources/food");
+    const baseDir = path.join(__dirname, "../resources/foodImage");
+    const fileName = `${name}${extension}`;
     const filePath = path.join(baseDir, fileName);
 
     fs.writeFile(filePath, Buffer.from(imageData, "base64"), (err) => {
@@ -28,7 +31,11 @@ function uploadFoodImage(call, callback) {
                 details: "Error al guardar la imagen",
             });
         } else {
-            callback(null, { success: true });
+            console.log(`Imagen guardada en: ${filePath}`);
+            callback(null, { 
+                result: true,
+                imageName: fileName 
+            });
         }
     });
 }

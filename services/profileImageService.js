@@ -1,8 +1,10 @@
 const fs = require('fs');
 const path = require('path');
 
-function downloadFile(call, callback) {
-    const filePath = call.request.path;
+function downloadProfileImage(call, callback) {
+    const baseDir = path.join(__dirname, "../resources/profileImage");
+    const filePath = path.join(baseDir, call.request.name);
+    
     fs.readFile(filePath, "base64", (err, data) => {
         if (err) {
             callback({
@@ -10,18 +12,18 @@ function downloadFile(call, callback) {
                 details: "Imagen no encontrada",
             });
         } else {
+            console.log(`Imagen encontrada en: ${filePath}`);
             callback(null, { imageData: data });
         }
     });
 }
 
-function uploadFile(call, callback) {
-    const { username, userType, fileName, imageData} = call.request;
+function uploadProfileImage(call, callback) {
+    const { name, extension, imageData} = call.request;
     
-    const fileExtension = path.extname(fileName);
-    const baseDir = path.join(__dirname, "../resources", userType);
-    const newFileName = `${username}${fileExtension}`;
-    const filePath = path.join(baseDir, newFileName);
+    const baseDir = path.join(__dirname, "../resources/profileImage");
+    const fileName = `${name}${extension}`;
+    const filePath = path.join(baseDir, fileName);
 
     fs.writeFile(filePath, Buffer.from(imageData, "base64"), (err) => {
         if (err) {
@@ -30,8 +32,11 @@ function uploadFile(call, callback) {
                 details: "Error al guardar la imagen",
             });
         } else {
-            console.log(`Imagen de ${username} guardada en: ${filePath}`);
-            callback(null, { success: true });
+            console.log(`Imagen guardada en: ${filePath}`);
+            callback(null, { 
+                result: true,
+                imageName: fileName 
+            });
         }
     });
 }
@@ -39,6 +44,6 @@ function uploadFile(call, callback) {
 
 
 module.exports = {
-    downloadFile,
-    uploadFile,
+    uploadProfileImage,
+    downloadProfileImage,
 };
