@@ -22,7 +22,7 @@ function uploadProfileImage(call, callback) {
     const { name, extension, imageData} = call.request;
     
     const baseDir = path.join(__dirname, "../resources/profileImage");
-    const fileName = `${name}${extension}`;
+    const fileName = `${name}.${extension}`;
     const filePath = path.join(baseDir, fileName);
 
     fs.writeFile(filePath, Buffer.from(imageData, "base64"), (err) => {

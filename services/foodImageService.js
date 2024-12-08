@@ -12,6 +12,7 @@ function downloadFoodImage(call, callback) {
                 details: "Imagen no encontrada",
             });
         } else {
+            console.log(`Imagen encontrada en: ${filePath}`);
             callback(null, { imageData: data });
         }
     });
@@ -21,11 +22,12 @@ function uploadFoodImage(call, callback) {
     const { name, extension, imageData} = call.request;
     
     const baseDir = path.join(__dirname, "../resources/foodImage");
-    const fileName = `${name}${extension}`;
+    const fileName = `${name}.${extension}`;
     const filePath = path.join(baseDir, fileName);
 
     fs.writeFile(filePath, Buffer.from(imageData, "base64"), (err) => {
         if (err) {
+            console.log(err);
             callback({
                 code: grpc.status.INTERNAL,
                 details: "Error al guardar la imagen",
