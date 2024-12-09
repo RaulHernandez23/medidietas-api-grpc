@@ -5,11 +5,13 @@ package imageService;
 service ProfileImageService {
     rpc downloadProfileImage (DownloadImageRequest) returns (DownloadImageResponse);
     rpc uploadProfileImage (UploadImageRequest) returns (UploadFileResponse);
+    rpc deleteProfileImage (DeleteImageRequest) returns (DeleteImageResponse);
 }
 
 service FoodImageService {
     rpc downloadFoodImage (DownloadImageRequest) returns (DownloadImageResponse);
     rpc uploadFoodImage (UploadImageRequest) returns (UploadFileResponse);
+    rpc deleteFoodImage (DeleteImageRequest) returns (DeleteImageResponse);
 }
 
 message DownloadImageRequest {
@@ -29,4 +31,12 @@ message UploadImageRequest {
 message UploadFileResponse {
     bool result = 1;
     string imageName = 2;
+}
+
+message DeleteImageRequest {
+    string name = 1;
+}
+
+message DeleteImageResponse {
+    bool result = 1;
 }

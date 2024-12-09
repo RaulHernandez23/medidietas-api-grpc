@@ -42,7 +42,34 @@ function uploadFoodImage(call, callback) {
     });
 }
 
+function deleteFoodImage(call, callback) {
+    const baseDir = path.join(__dirname, "../resources/foodImage");
+    const filePath = path.join(baseDir, call.request.name);
+
+    fs.access(filePath, fs.constants.F_OK, (err) => {
+        if (err) {
+            callback({
+                code: grpc.status.NOT_FOUND,
+                details: "Imagen no encontrada",
+            });
+        } else {
+            fs.unlink(filePath, (err) => {
+                if (err) {
+                    callback({
+                        code: grpc.status.INTERNAL,
+                        details: "Error al eliminar la imagen",
+                    });
+                } else {
+                    console.log(`Imagen eliminada de: ${filePath}`);
+                    callback(null, { result: true });
+                }
+            });
+        }
+    })
+}
+
 module.exports = {
     downloadFoodImage,
     uploadFoodImage,
+    deleteFoodImage
 };
