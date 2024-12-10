@@ -7,6 +7,7 @@ function downloadFoodImage(call, callback) {
     
     fs.readFile(filePath, "base64", (err, data) => {
         if (err) {
+            console.log(`Error al leer la imagen: ${err}`);
             callback({
                 code: grpc.status.NOT_FOUND,
                 details: "Imagen no encontrada",
@@ -27,7 +28,7 @@ function uploadFoodImage(call, callback) {
 
     fs.writeFile(filePath, Buffer.from(imageData, "base64"), (err) => {
         if (err) {
-            console.log(err);
+            console.log(`Error al guardar la imagen: ${err}`);
             callback({
                 code: grpc.status.INTERNAL,
                 details: "Error al guardar la imagen",
@@ -48,6 +49,7 @@ function deleteFoodImage(call, callback) {
 
     fs.access(filePath, fs.constants.F_OK, (err) => {
         if (err) {
+            console.log(`Error al acceder a la imagen: ${err}`);
             callback({
                 code: grpc.status.NOT_FOUND,
                 details: "Imagen no encontrada",
