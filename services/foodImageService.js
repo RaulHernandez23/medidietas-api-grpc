@@ -1,3 +1,4 @@
+const grpc = require('@grpc/grpc-js');
 const fs = require('fs');
 const path = require('path');
 
