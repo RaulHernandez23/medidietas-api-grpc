@@ -57,3 +57,6 @@ tmp/
 # Ignore Docker-related files if using Docker
 .dockerignore
 docker-compose.override.yml
+
+/src/allure-results
+/src/allure-report
