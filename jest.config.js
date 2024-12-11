@@ -1,4 +1,7 @@
 module.exports = {
-    testEnvironment: 'node',
+    testEnvironment: 'allure-jest/node',
     testMatch: ['**/tests/*.test.js'],
+    reporters: [
+        "default"
+    ]
 }

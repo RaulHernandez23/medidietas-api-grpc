@@ -17,6 +17,7 @@
     "fs-extra": "^11.2.0"
   },
   "devDependencies": {
+    "allure-jest": "^3.0.7",
     "jest": "^29.7.0"
   }
 }
